@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+
   def show
     @post = Post.find(params[:id])
   end
@@ -10,9 +11,12 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
 
-    @post.update(post_params)
+    if @post.update(post_params)
+      redirect_to post_path(@post)
+    else 
+      render :edit
+    end 
 
-    redirect_to post_path(@post)
   end
 
   private
